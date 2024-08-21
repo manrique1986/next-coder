@@ -28,6 +28,12 @@ const ProductList = ({ productos = [] }) => {
                 key={pizza.id}
                 pizza={pizza}
                 onPizzaClick={handlePizzaClick}
+                nombre={pizza.nombre}
+                precio={pizza.precio}
+                imagen={pizza.imagen}
+                descripcion={pizza.descripcion}
+                category={pizza.category}
+
               />
             ))
           ) : (
