@@ -9,13 +9,11 @@ const Page = () => {
   const [selectedCategory, setSelectedCategory] = useState("todos");
   const router = useRouter();
 
-  // Detectar la ruta actual
+
   const isProductPage = router.asPath === "/producto";
 
-  // Extraer categorías únicas de los productos
   const categories = ["todos", ...new Set(productos.map(product => product.category))];
 
-  // Filtrar productos según la categoría seleccionada, si no estamos en la ruta /producto
   const filteredProducts = isProductPage
     ? productos
     : selectedCategory === "todos"
@@ -27,7 +25,6 @@ const Page = () => {
       <h1 className="ml-8">Tipo de masa: {isProductPage ? "All Products" : selectedCategory}</h1>
       
 
-      {/* Mostrar filtros solo si no estamos en la ruta /producto */}
       {!isProductPage && (
         <div className="flex flex-wrap gap-2 justify-center w-full max-w-screen-sm mx-auto">
   {categories.map((category) => (
@@ -42,7 +39,7 @@ const Page = () => {
 </div>
       )}
     <hr
-  class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8 w-1/2 mx-auto"
+  className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8 w-1/2 mx-auto"
 />
 
       <ProductList productos={filteredProducts} />

@@ -1,19 +1,10 @@
 "use client";
+
 import React, { useState } from 'react';
 
-const Counter = () => {
-  const [counter, setCounter] = useState(1);
-
+const Counter = ({ value, onChange }) => {
   const handleCounterChange = (change) => {
-    setCounter((prevCounter) =>
-      change === 1
-        ? prevCounter < 10
-          ? prevCounter + change
-          : prevCounter
-        : prevCounter > 1
-        ? prevCounter + change
-        : prevCounter
-    );
+    onChange(change);
   };
 
   return (
@@ -25,7 +16,7 @@ const Counter = () => {
         >
           -
         </button>
-        <span className='text-gray-700 p-3'>{counter}</span>
+        <span className='text-gray-700 p-3'>{value}</span>
         <button
           onClick={() => handleCounterChange(1)}
           className='px-3 py-1 bg-gray-200 rounded'

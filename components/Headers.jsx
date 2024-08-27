@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import { useCartContext } from "@/context/cartContext"; 
 
 const Links = [
   {
@@ -17,20 +17,19 @@ const Links = [
   },
   {
     Label: "Productos",
-    href: "/Producto",
+    href: "/productos/all",
   },
   {
     Label: "Admin",
     href: "/Admin",
   },
-  {
-    Label: "Carrito",
-    href: "/Carrito",
-  },
 ];
 
 const Headers = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { getTotalItems } = useCartContext(); 
+  const pathname = usePathname();
+  const totalItems = getTotalItems(); 
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -40,14 +39,20 @@ const Headers = () => {
     setIsMenuOpen(false);
   };
 
-  const pathname = usePathname();
-  
   return (
     <div>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <Image src={"/logopizza.png"} alt="logopizza" width={200} height={200} />
+          <Link
+            href="/"
+            className="flex items-center space-x-3 rtl:space-x-reverse"
+          >
+            <Image
+              src={"/logopizza.png"}
+              alt="logopizza"
+              width={200}
+              height={200}
+            />
           </Link>
           <button
             data-collapse-toggle="navbar-default"
@@ -84,13 +89,13 @@ const Headers = () => {
                 const isActive = pathname === link.href;
 
                 return (
-                  <li key={index}>
+                  <li key={index} className="relative">
                     <Link href={link.href} onClick={closeMenu}>
                       <p
                         className={`block py-2 px-3 rounded md:p-0 ${
                           isActive
-                            ? 'text-[#EB3A00] dark:text-blue-500'
-                            : 'text-gray-500 dark:text-white'
+                            ? "text-[#EB3A00] dark:text-blue-500"
+                            : "text-gray-500 dark:text-white"
                         } hover:bg-[#EB3A00] md:hover:bg-transparent md:border-0 md:hover:text-[#EB3A00] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent`}
                       >
                         {link.Label}
@@ -99,6 +104,21 @@ const Headers = () => {
                   </li>
                 );
               })}
+              <li className="relative">
+                <Link href="/Carrito" onClick={closeMenu}>
+                  <Image
+                    src="https://res.cloudinary.com/dytpump6i/image/upload/v1724794855/carrito1_xfvl2d.png" // Asegúrate de que esta sea la ruta correcta de la imagen del carrito
+                    alt="Carrito"
+                    width={30}
+                    height={30}
+                  />
+                     {totalItems > 0 && (
+                    <span className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full px-2 py-1 mt-6">
+                      {totalItems}
+                    </span>
+                  )}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

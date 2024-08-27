@@ -1,13 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Counter from "@/components/Counter";
+import { useCartContext } from "@/context/cartContext";
 
 const ProductCard = ({ pizza, onPizzaClick }) => {
+  const { addToCart } = useCartContext(); 
+  const [quantity, setQuantity] = useState(1); 
+
+  const handleCounterChange = (change) => {
+   
+    setQuantity((prevQuantity) => Math.max(1, prevQuantity + change));
+  };
+
   return (
-    <div
-      className="w-full bg-white rounded-lg overflow-hidden border-2 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 shadow-md shadow-[#EB3A00]"
-    >
+    <div className="w-full bg-white rounded-lg overflow-hidden border-2 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 shadow-md shadow-[#EB3A00]">
       <div>
         <img
           className="object-center object-cover h-auto w-full"
@@ -20,7 +27,7 @@ const ProductCard = ({ pizza, onPizzaClick }) => {
           {pizza.nombre}
         </p>
         <p className="text-lg text-gray-800 font-semibold">
-          ${pizza.precio.toFixed(2)}
+          ${pizza.precio}
         </p>
         <button
           onClick={() => onPizzaClick(pizza)}
@@ -30,8 +37,14 @@ const ProductCard = ({ pizza, onPizzaClick }) => {
             Detalle
           </span>
         </button>
-        <Counter />
+        <Counter value={quantity} onChange={handleCounterChange} />
       </div>
+      <button
+        onClick={() => addToCart({ ...pizza, quantity })} 
+        className="px-4 py-2 bg-[#EB3A00] text-white rounded-lg hover:bg-[#612c1a]"
+      >
+        Agregar
+      </button>
     </div>
   );
 };

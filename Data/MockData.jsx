@@ -56,7 +56,7 @@ export const productos = [
     },
     {
       id: 7,
-      nombre: "Fugazeta",
+      nombre: "Fugazzeta",
       descripcion:
         "Una pizza típica argentina con cebolla, mozzarella y orégano. La Fugazeta es conocida por su generosa cantidad de queso y la dulzura de las cebollas caramelizadas. Perfecta para los amantes del queso y los sabores intensos.",
       precio: 9.99,
