@@ -1,13 +1,20 @@
 import { NextResponse } from "next/server";
-import { productos } from "@/Data/mockData";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/firebase/config";
 
-const sleep = (timer) => {
-  return new Promise((resolve) => setTimeout(resolve, timer));
-};
+export async function POST(request) {
+  try {
+    const productData = await request.json(); // Asegúrate de que los datos se estén obteniendo correctamente
 
-export async function GET(request) {
+    const docRef = await addDoc(collection(db, "Productos"), productData); // Agrega el producto a Firestore
+    const newProduct = {
+      id: docRef.id,
+      ...productData,
+    };
 
-
-  await sleep(1000);
-  return NextResponse.json(productos);
+    return NextResponse.json(newProduct, { status: 201 });
+  } catch (error) {
+    console.error("Error al agregar el producto:", error);
+    return NextResponse.json({ error: "Error al agregar el producto" }, { status: 500 });
+  }
 }

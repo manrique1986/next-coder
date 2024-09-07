@@ -1,0 +1,84 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+const ProductsTable = ({ category }) => {
+  const [products, setProducts] = useState([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`/api/productos/${category || "all"}`, {
+          cache: "no-store",
+        });
+        const data = await response.json();
+
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, [category]);
+
+  return (
+    <div className="h-screen overflow-hidden">
+      <div className="overflow-x-auto h-full">
+        <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
+          <thead>
+            <tr>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                Nombre
+              </th>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                Descripción
+              </th>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                Precio
+              </th>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                Imagen
+              </th>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                Categoría
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {products.map((product) => (
+              <tr key={product.id} className="relative group hover:bg-gray-50">
+                <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                  {product.nombre}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-500 relative max-w-xs">
+                  <div className="truncate">{product.descripcion}</div>
+                  <div className="absolute left-0 top-full mt-1 max-w-xs p-2 bg-gray-800 text-white text-sm rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                    {product.descripcion}
+                  </div>
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-500">
+                  ${product.precio}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-500">
+                  <img
+                    src={product.imagen}
+                    alt={product.nombre}
+                    className="w-12 h-12 object-cover rounded-md"
+                  />
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-500">
+                  {product.category}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default ProductsTable;

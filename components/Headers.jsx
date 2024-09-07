@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCartContext } from "@/context/cartContext"; 
+import { useCartContext } from "@/context/cartContext";
 
 const Links = [
   {
@@ -27,9 +27,9 @@ const Links = [
 
 const Headers = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { getTotalItems } = useCartContext(); 
+  const { getTotalItems } = useCartContext();
   const pathname = usePathname();
-  const totalItems = getTotalItems(); 
+  const totalItems = getTotalItems();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -112,7 +112,7 @@ const Headers = () => {
                     width={30}
                     height={30}
                   />
-                     {totalItems > 0 && (
+                  {totalItems > 0 && (
                     <span className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full px-2 py-1 mt-6">
                       {totalItems}
                     </span>
