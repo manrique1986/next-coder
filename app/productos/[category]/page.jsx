@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import Productos from "@/components/Productos";
+import Productos from "../../../components/productos";
 
 
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import ProductList from "@/components/ProductList";
+import ProductList from "../components/ProductList";
 import { useRouter } from "next/navigation";
 import Loading from "./loading";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCartContext } from "@/context/cartContext";
+import { useCartContext } from "../../context/cartContext";
 import React from "react";
 import Image from 'next/image'; // Importa el componente Image
 
