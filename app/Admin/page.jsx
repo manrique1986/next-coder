@@ -1,7 +1,7 @@
 import React from 'react'
 import ProductsTable from '@/components/ProductsTable'
 
-const Admin = () => {
+const AdminPage = () => {
   return (
     <div className=" ">
       <ProductsTable/>
@@ -9,4 +9,4 @@ const Admin = () => {
   )
 }
 
-export default Admin
+export default AdminPage

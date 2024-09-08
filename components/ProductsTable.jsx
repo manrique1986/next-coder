@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -24,25 +25,38 @@ const ProductsTable = ({ category }) => {
     fetchProducts();
   }, [category]);
 
+  // Función para redirigir a la página de crear producto
+  const handleAddProduct = () => {
+    router.push("Admin/Create"); // Redirige a la página "/create"
+  };
+
   return (
     <div className="h-screen overflow-hidden">
+      <div className="flex justify-center mb-4">
+        <button
+          onClick={handleAddProduct}
+          className="bg-[#EB3A00] hover:bg-[#d26b48] text-white font-bold py-2 px-4 rounded"
+        >
+          Agregar Producto
+        </button>
+      </div>
       <div className="overflow-x-auto h-full">
         <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
           <thead>
             <tr>
-              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-lg font-medium text-black uppercase tracking-wider">
                 Nombre
               </th>
-              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-lg font-medium text-black uppercase tracking-wider">
                 Descripción
               </th>
-              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-lg font-medium text-black uppercase tracking-wider">
                 Precio
               </th>
-              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-lg font-medium text-black uppercase tracking-wider">
                 Imagen
               </th>
-              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-lg font-medium text-black uppercase tracking-wider">
                 Categoría
               </th>
             </tr>
