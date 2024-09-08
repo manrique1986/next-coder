@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCartContext } from "@/context/cartContext";
+import { useCartContext } from "app/context/cartContext";
 
 const Links = [
   { Label: "Home", href: "/" },

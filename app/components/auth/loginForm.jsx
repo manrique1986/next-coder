@@ -4,7 +4,7 @@ import { useState } from "react";
 import { IoPersonOutline, IoPerson } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
-import { useAuthContext } from "@/context/AuthContext";
+import { useAuthContext } from "app/context/AuthContext";
 import { useRouter } from "next/navigation"; // Para manejar la navegación
 
 const LoginForm = () => {

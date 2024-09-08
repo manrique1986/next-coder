@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import Productos from "../../../components/productos";
+import Productos from "../../components/productos";
 
 
 

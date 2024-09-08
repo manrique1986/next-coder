@@ -1,5 +1,5 @@
 "use client";
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthContext } from 'app/context/AuthContext';
 import LoginPage from './Login/loginPage';
 
 

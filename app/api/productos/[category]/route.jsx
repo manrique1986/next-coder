@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "@/firebase/config"; 
+import { db } from "app/components/firebase/config";
 
 const sleep = (timer) => {
   return new Promise((resolve) => setTimeout(resolve, timer));

@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import Image from 'next/image'; // Importa el componente Image
-import Counter from "@/components/Counter";
-import { useCartContext } from "@/context/cartContext";
+import Counter from "./Counter";
+import { useCartContext } from "app/context/cartContext";
 
 const ProductCard = ({ pizza, onPizzaClick }) => {
   const { addToCart } = useCartContext(); 
