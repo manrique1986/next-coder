@@ -3,11 +3,9 @@
 import { Suspense, useState } from "react";
 import React from "react";
 import ProductCard from "./ProductCard";
-import ProductDetail from "./ProductDetail";  
+import ProductDetail from "./ProductDetail";
 
-
-
-const ProductList = ({ productos = [] }) => { 
+const ProductList = ({ productos = [] }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPizza, setSelectedPizza] = useState(null);
 
@@ -21,31 +19,28 @@ const ProductList = ({ productos = [] }) => {
     setSelectedPizza(null);
   };
 
+  if (!productos || productos.length === 0) {
+    // No mostramos nada mientras no haya productos o mientras están cargando
+    return null;
+  }
+
   return (
     <div>
-
       <section className="flex justify-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-16 py-8">
-        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {productos.length > 0 ? (
-            productos.map((pizza) => (
-              <ProductCard
-                key={pizza.id}
-                pizza={pizza}
-                onPizzaClick={handlePizzaClick}
-              />
-            ))
-          ) : (
-            <p>No hay productos</p> 
-          )}
+          {productos.map((pizza) => (
+            <ProductCard
+              key={pizza.id}
+              pizza={pizza}
+              onPizzaClick={handlePizzaClick}
+            />
+          ))}
         </div>
-        
       </section>
 
       {modalOpen && selectedPizza && (
         <ProductDetail pizza={selectedPizza} closeModal={closeModal} />
       )}
-
     </div>
   );
 };

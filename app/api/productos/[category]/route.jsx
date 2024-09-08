@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/firebase/config"; 
 
+const sleep = (timer) => {
+  return new Promise((resolve) => setTimeout(resolve, timer));
+}
+
 export async function GET(request, { params }) {
   const { category } = params;
 
@@ -17,6 +21,7 @@ export async function GET(request, { params }) {
     return NextResponse.json(products);
   } catch (error) {
     console.error("Error fetching products:", error);
+    await sleep(4000)
     return NextResponse.json({ error: "Error fetching products" }, { status: 500 });
   }
 }
