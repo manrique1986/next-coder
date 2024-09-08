@@ -2,8 +2,7 @@
 
 import React, { useState } from "react";
 
-
-import CreateForm from "../../../components/CreateForm";
+import CreateForm from "app/components/CreateForm";
 
 const AdminPage = () => {
   const [products, setProducts] = useState([]);
