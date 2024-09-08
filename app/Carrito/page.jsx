@@ -2,6 +2,7 @@
 
 import { useCartContext } from "@/context/cartContext";
 import React from "react";
+import Image from 'next/image'; // Importa el componente Image
 
 const Carrito = () => {
   const { cart, removeFromCart } = useCartContext();
@@ -39,10 +40,12 @@ const Carrito = () => {
                   className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between"
                 >
                   <div className="flex items-center">
-                    <img
+                    <Image
                       src={item.imagen}
                       alt={item.nombre}
-                      className="w-24 h-24 object-cover rounded-md mr-4"
+                      width={96} // Ajusta el ancho según tus necesidades
+                      height={96} // Ajusta la altura según tus necesidades
+                      className="object-cover rounded-md mr-4"
                     />
                     <div>
                       <h2 className="text-lg font-semibold text-gray-800">

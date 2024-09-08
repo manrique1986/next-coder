@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from 'next/image'; // Importa el componente Image
 import Counter from "@/components/Counter";
 import { useCartContext } from "@/context/cartContext";
 
@@ -9,17 +10,18 @@ const ProductCard = ({ pizza, onPizzaClick }) => {
   const [quantity, setQuantity] = useState(1); 
 
   const handleCounterChange = (change) => {
-   
     setQuantity((prevQuantity) => Math.max(1, prevQuantity + change));
   };
 
   return (
     <div className="w-full bg-white rounded-lg overflow-hidden border-2 flex flex-col justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 shadow-md shadow-[#EB3A00]">
       <div>
-        <img
+        <Image
           className="object-center object-cover h-auto w-full"
           src={pizza.imagen}
           alt={pizza.nombre}
+          width={500} // Ajusta el ancho según tus necesidades
+          height={300} // Ajusta la altura según tus necesidades
         />
       </div>
       <div className="text-center py-8 sm:py-6">

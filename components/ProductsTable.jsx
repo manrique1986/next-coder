@@ -1,8 +1,8 @@
 "use client";
 
-
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from 'next/image'; // Importa el componente Image
 
 const ProductsTable = ({ category }) => {
   const [products, setProducts] = useState([]);
@@ -77,10 +77,12 @@ const ProductsTable = ({ category }) => {
                   ${product.precio}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  <img
+                  <Image
                     src={product.imagen}
                     alt={product.nombre}
-                    className="w-12 h-12 object-cover rounded-md"
+                    className="object-cover rounded-md"
+                    width={48} // Ajusta el ancho según tus necesidades
+                    height={48} // Ajusta la altura según tus necesidades
                   />
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
