@@ -14,12 +14,27 @@ export const CartProvider = ({ children }) => {
     setCart([...cart, newItem]); // Agregar el nuevo item al carrito
   };
 
+  const updateQuantity = (id, newQuantity) => {
+    if (newQuantity <= 0) {
+      // Si la nueva cantidad es menor o igual a cero, elimina el producto del carrito
+      removeFromCart({ id });
+    } else {
+      // De lo contrario, actualiza la cantidad del producto
+      setCart((prevCart) =>
+        prevCart.map((item) =>
+          item.id === id ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    }
+  };
+
   const removeFromCart = (product) => {
     setCart(cart.filter(item => item.id !== product.id));
   };
+
   const getTotalItems = () => cart.length;
   return ( 
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, getTotalItems }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, getTotalItems, updateQuantity }}>
       {children}
     </CartContext.Provider>
   );

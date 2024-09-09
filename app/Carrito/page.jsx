@@ -2,17 +2,27 @@
 
 import { useCartContext } from "../context/cartContext";
 import React from "react";
-import Image from 'next/image'; // Importa el componente Image
+import Image from 'next/image';
 
 const Carrito = () => {
-  const { cart, removeFromCart } = useCartContext();
+  const { cart, removeFromCart, updateQuantity } = useCartContext();
 
-  // Maneja la eliminación del producto del carrito
   const handleRemove = (item) => {
     removeFromCart(item);
   };
 
-  // Calcula el total del carrito
+  const handleIncrement = (item) => {
+    updateQuantity(item.id, item.quantity + 1);
+  };
+
+  const handleDecrement = (item) => {
+    if (item.quantity > 1) {
+      updateQuantity(item.id, item.quantity - 1);
+    } else {
+      // removeFromCart(item);
+    }
+  };
+
   const calculateTotal = () => {
     return cart
       .reduce((total, item) => total + item.precio * item.quantity, 0)
@@ -43,15 +53,29 @@ const Carrito = () => {
                     <Image
                       src={item.imagen}
                       alt={item.nombre}
-                      width={96} // Ajusta el ancho según tus necesidades
-                      height={96} // Ajusta la altura según tus necesidades
+                      width={96}
+                      height={96}
                       className="object-cover rounded-md mr-4"
                     />
                     <div>
                       <h2 className="text-lg font-semibold text-gray-800">
                         {item.nombre}
                       </h2>
-                      <p className="text-gray-600">Cantidad: {item.quantity}</p>
+                      <div className="flex items-center space-x-2">
+                        <button
+                          onClick={() => handleDecrement(item)}
+                          className="px-2 py-1 bg-gray-300 text-gray-800 rounded"
+                        >
+                          -
+                        </button>
+                        <p className="text-gray-600">Cantidad: {item.quantity}</p>
+                        <button
+                          onClick={() => handleIncrement(item)}
+                          className="px-2 py-1 bg-gray-300 text-gray-800 rounded"
+                        >
+                          +
+                        </button>
+                      </div>
                       <p className="text-gray-600">
                         Precio por unidad: ${item.precio}
                       </p>

@@ -1,30 +1,21 @@
-import { NextResponse } from "next/server";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "app/components/firebase/config";
+import { NextResponse } from "next/server";
 
-const sleep = (timer) => {
-  return new Promise((resolve) => setTimeout(resolve, timer));
-}
-
-export async function GET(request, { params }) {
-  const { category } = params;
-
+export async function GET(request) {
   try {
     const productosRef = collection(db, "Productos");
-    const q = category === "all" 
-      ? productosRef
-      : query(productosRef, where("category", "==", category));
+    const snapshot = await getDocs(productosRef);
 
-    const querySnapshot = await getDocs(q);
-    const products = querySnapshot.docs.map(doc => doc.data());
+    // Mapea los documentos para incluir el ID del documento
+    const productos = snapshot.docs.map((doc) => ({
+      id: doc.id, // Aquí incluimos el ID del documento
+      ...doc.data(), // Incluimos los datos del documento
+    }));
 
-    return NextResponse.json(products);
+    return NextResponse.json(productos, { status: 200 });
   } catch (error) {
-    console.error("Error fetching products:", error);
-    await sleep(4000)
-    return NextResponse.json({ error: "Error fetching products" }, { status: 500 });
+    console.error("Error al obtener los productos:", error);
+    return NextResponse.json({ error: "Error al obtener los productos" }, { status: 500 });
   }
 }
-
-
-

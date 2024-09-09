@@ -5,11 +5,12 @@ import { IoPersonOutline, IoPerson } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { useAuthContext } from "app/context/AuthContext";
-import { useRouter } from "next/navigation"; // Para manejar la navegación
+import { useRouter } from "next/navigation"; 
+import Swal from 'sweetalert2';
 
 const LoginForm = () => {
   const { registerUser, loginUser, googleLogin } = useAuthContext();
-  const router = useRouter(); // Hook para navegar
+  const router = useRouter();
 
   const [values, setValues] = useState({
     email: "",
@@ -24,11 +25,33 @@ const LoginForm = () => {
     e.preventDefault();
   };
 
+  const handleLogin = async () => {
+    try {
+      await loginUser(values);
+      Swal.fire({
+        title: '¡Login exitoso!',
+        text: 'Te has logueado correctamente.',
+        icon: 'success',
+        timer: 3000, 
+        timerProgressBar: true,
+        confirmButtonText: 'Aceptar',
+      });
+      router.push('/Admin');
+    } catch (error) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Hubo un problema con el login.',
+        icon: 'error',
+        confirmButtonText: 'Intentar de nuevo',
+      });
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-10 flex justify-center items-center backdrop-blur-xl px-3">
       <form
         onSubmit={handleSubmit}
-        className="bg-blue-900 py-4 px-6 rounded-xl max-w-md w-full space-y-4"
+        className="bg-[#e56940] py-4 px-6 rounded-xl max-w-md w-full space-y-4"
       >
         <div className="flex justify-center items-center ">
           <IoPersonOutline className="text-9xl text-white border-2 rounded-full border-white p-4" />
@@ -65,7 +88,7 @@ const LoginForm = () => {
             <button
               type="button"
               className="bg-white py-3 px-6 sm:px-10 text-blue-900 rounded-full"
-              onClick={() => loginUser(values)}
+              onClick={handleLogin}
             >
               Login
             </button>
@@ -87,7 +110,6 @@ const LoginForm = () => {
           </button>
         </div>
 
-        {/* Botón para volver a la página anterior */}
         <div className="flex justify-center mt-4">
           <button
             type="button"

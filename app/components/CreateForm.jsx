@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Swal from "sweetalert2"; // Importar SweetAlert2
 
 const CreateForm = ({ onProductAdd }) => {
   const [productData, setProductData] = useState({
@@ -33,7 +34,19 @@ const CreateForm = ({ onProductAdd }) => {
 
       if (response.ok) {
         const newProduct = await response.json();
-        onProductAdd(newProduct); // Llamada a la función para agregar el producto en la lista
+        onProductAdd(newProduct);
+
+        // Mostrar alerta de éxito
+        Swal.fire({
+          title: "Producto agregado con éxito",
+          text: "El producto se ha agregado correctamente.",
+          icon: "success",
+          iconColor: "#EB3A00", // Cambiar el color del ícono a naranja
+          confirmButtonColor: "#EB3A00", // Cambiar el color del botón de confirmación a naranja
+          timer: 3000, // Alerta visible durante 3 segundos
+          showConfirmButton: true,
+        });
+
         setProductData({
           nombre: "",
           descripcion: "",
@@ -43,9 +56,21 @@ const CreateForm = ({ onProductAdd }) => {
         });
       } else {
         console.error("Error al agregar el producto.");
+        Swal.fire({
+          title: "Error",
+          text: "Hubo un error al agregar el producto.",
+          icon: "error",
+          confirmButtonColor: "#d33", // Color del botón en caso de error
+        });
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
+      Swal.fire({
+        title: "Error",
+        text: "Hubo un problema con la solicitud.",
+        icon: "error",
+        confirmButtonColor: "#d33",
+      });
     }
   };
 
