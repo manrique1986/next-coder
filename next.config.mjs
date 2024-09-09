@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['res.cloudinary.com'],
+        domains: ['res.cloudinary.com','master--altapinta1.netlify.app', 'another-domain.com'],
       },
     
 };
