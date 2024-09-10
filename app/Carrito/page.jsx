@@ -3,6 +3,7 @@
 import { useCartContext } from "../context/cartContext";
 import React from "react";
 import Image from 'next/image';
+import Swal from 'sweetalert2'; // Importa SweetAlert2
 
 const Carrito = () => {
   const { cart, removeFromCart, updateQuantity } = useCartContext();
@@ -27,6 +28,16 @@ const Carrito = () => {
     return cart
       .reduce((total, item) => total + item.precio * item.quantity, 0)
       .toFixed(2);
+  };
+
+  const handleProceedPayment = () => {
+    Swal.fire({
+      title: 'Pago no disponible',
+      text: 'Por el momento no contamos con pago electrónico. Por favor confirme su pedido por WhatsApp. Muchas gracias.',
+      icon: 'info',
+      confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#EB3A00'
+    });
   };
 
   return (
@@ -99,8 +110,8 @@ const Carrito = () => {
                 Total del Carrito: ${calculateTotal()}
               </h2>
               <button
+                onClick={handleProceedPayment}
                 className="px-6 py-3 bg-[#f8602d] text-white rounded-lg hover:bg-[#f8602d] mt-4"
-                // Agrega la lógica para proceder al checkout
               >
                 Proceder al Pago
               </button>
