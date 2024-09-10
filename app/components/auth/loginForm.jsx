@@ -48,72 +48,74 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-10 flex justify-center items-center backdrop-blur-xl px-3">
+    <div className="fixed inset-0 z-10 flex justify-center items-center px-3 bg-gradient-to-r from-orange-400 to-red-500 backdrop-blur-sm">
       <form
         onSubmit={handleSubmit}
-        className="bg-[#e56940] py-4 px-6 rounded-xl max-w-md w-full space-y-4"
+        className="bg-white shadow-lg py-8 px-10 rounded-3xl max-w-lg w-full space-y-6"
       >
-        <div className="flex justify-center items-center ">
-          <IoPersonOutline className="text-9xl text-white border-2 rounded-full border-white p-4" />
+        <div className="flex justify-center items-center">
+          <IoPersonOutline className="text-7xl text-orange-500 bg-gray-100 rounded-full p-4 shadow-md" />
         </div>
 
-        <div className="flex space-x-2 items-center">
-          <IoPerson className="text-3xl text-white" />
+        <div className="flex space-x-2 items-center bg-gray-100 rounded-lg p-2 shadow-inner hover:shadow-lg transition duration-300">
+          <IoPerson className="text-2xl text-orange-500" />
           <input
             type="email"
             value={values.email}
             required
             placeholder="Email"
-            className="p-2 rounded-e-lg w-full block"
+            className="w-full bg-transparent border-none focus:outline-none focus:ring-0"
             name="email"
             onChange={handleChange}
           />
         </div>
 
-        <div className="flex space-x-2 items-center">
-          <RiLockPasswordFill className="text-3xl text-white" />
+        <div className="flex space-x-2 items-center bg-gray-100 rounded-lg p-2 shadow-inner hover:shadow-lg transition duration-300">
+          <RiLockPasswordFill className="text-2xl text-orange-500" />
           <input
             type="password"
             value={values.password}
             required
             placeholder="Password"
-            className="p-2 rounded-e-lg w-full block"
+            className="w-full bg-transparent border-none focus:outline-none focus:ring-0"
             name="password"
             onChange={handleChange}
           />
         </div>
 
-        <div className="flex flex-col space-y-3">
-          <div className="flex justify-between">
-            <button
-              type="button"
-              className="bg-white py-3 px-6 sm:px-10 text-blue-900 rounded-full"
-              onClick={handleLogin}
-            >
-              Login
-            </button>
-            <button
-              type="button"
-              className="flex items-center bg-white py-3 px-6 text-blue-900 rounded-full"
-              onClick={() => googleLogin()}
-            >
-              <FcGoogle className="text-3xl mr-2" />
-              Login with Google
-            </button>
-          </div>
+        <div className="flex flex-col space-y-4">
           <button
             type="button"
-            className="bg-white py-3 px-6  text-blue-900 rounded-full"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105"
+            onClick={handleLogin}
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            className="w-full flex justify-center items-center bg-white hover:bg-gray-100 text-blue-900 border-2 border-gray-300 font-semibold py-3 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105"
+            onClick={() => googleLogin()}
+          >
+            <FcGoogle className="text-3xl mr-2" />
+            Login with Google
+          </button>
+        </div>
+
+        <div className="text-center">
+          <p className="text-gray-500">¿No tienes una cuenta?</p>
+          <button
+            type="button"
+            className="bg-white hover:bg-gray-100 text-blue-900 border-2 border-gray-300 font-semibold py-2 px-6 rounded-full shadow-md transition duration-300 mt-2"
             onClick={() => registerUser(values)}
           >
-            Register
+            Registrarse
           </button>
         </div>
 
         <div className="flex justify-center mt-4">
           <button
             type="button"
-            className="text-white underline"
+            className="text-orange-500 hover:underline"
             onClick={() => router.back()}
           >
             Volver a la página anterior
