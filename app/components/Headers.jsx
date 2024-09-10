@@ -24,7 +24,7 @@ const Headers = () => {
 
   return (
     <header>
-      <nav className="bg-white border-b border-gray-200 dark:bg-gray-900">
+      <nav className="bg-white border-b border-gray-200 dark:bg-gray-900 z-50">
         <div className="max-w-screen-xl flex items-center justify-between p-4 mx-auto">
           <Link href="/" className="flex items-center">
             <Image
@@ -37,7 +37,7 @@ const Headers = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+            className="md:hidden p-2 text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 transition-transform duration-300"
             onClick={toggleMenu}
             aria-controls="navbar"
             aria-expanded={isMenuOpen}
@@ -59,8 +59,11 @@ const Headers = () => {
           </button>
 
           {/* Links & Cart */}
-          <div className={`md:flex items-center space-x-8 ${isMenuOpen ? "block" : "hidden"} md:block`}>
-            <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+          <div
+            className={`fixed inset-0 bg-white transition-transform duration-300 md:relative md:flex md:items-center md:space-x-8 ${isMenuOpen ? "transform translate-x-0 z-50" : "transform -translate-x-full"} md:transform-none md:bg-transparent`}
+            style={{ zIndex: isMenuOpen ? 50 : 0 }} // Ensure menu has higher z-index
+          >
+            <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6 p-4 md:p-0">
               {Links.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} onClick={closeMenu}>
@@ -78,7 +81,7 @@ const Headers = () => {
               ))}
 
               {/* Carrito */}
-              <li className="relative">
+              <li className="relative md:hidden">
                 <Link href="/Carrito" onClick={closeMenu}>
                   <Image
                     src="https://res.cloudinary.com/dytpump6i/image/upload/v1724794855/carrito1_xfvl2d.png"
@@ -103,6 +106,23 @@ const Headers = () => {
                 </Link>
               </li>
             </ul>
+          </div>
+
+          {/* Carrito (always visible) */}
+          <div className="hidden md:block relative">
+            <Link href="/Carrito">
+              <Image
+                src="https://res.cloudinary.com/dytpump6i/image/upload/v1724794855/carrito1_xfvl2d.png"
+                alt="Carrito"
+                width={30}
+                height={30}
+              />
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-2">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
       </nav>

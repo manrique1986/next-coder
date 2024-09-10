@@ -13,7 +13,7 @@ const Page = () => {
             layout="responsive"
             width={1200}
             height={800}
-            className="w-full object-cover"
+            className="w-full object-cover "
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-800 to-transparent opacity-50"></div>
           <div className="absolute inset-0 flex items-center justify-center">
