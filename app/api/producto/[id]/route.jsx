@@ -3,11 +3,11 @@ import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "app/components/firebase/config";
 
 export async function DELETE(request, { params }) {
-  const { id } = params; // Obtener el ID del producto de los parámetros
+  const { id } = params; 
 
   try {
-    const productRef = doc(db, "Productos", id); // Referencia al documento del producto
-    await deleteDoc(productRef); // Eliminar el documento
+    const productRef = doc(db, "Productos", id); 
+    await deleteDoc(productRef); 
 
     return NextResponse.json({ message: "Producto eliminado con éxito" }, { status: 200 });
   } catch (error) {
@@ -18,13 +18,13 @@ export async function DELETE(request, { params }) {
 
 
 export async function PUT(request, { params }) {
-    const { id } = params; // Extrae el ID de los parámetros de la URL
+    const { id } = params; 
   
     try {
-      const updatedProductData = await request.json(); // Obtén los datos enviados en la solicitud PUT
+      const updatedProductData = await request.json(); 
   
-      const docRef = doc(db, "Productos", id); // Referencia al documento en Firestore
-      await updateDoc(docRef, updatedProductData); // Actualiza el documento con los nuevos datos
+      const docRef = doc(db, "Productos", id); 
+      await updateDoc(docRef, updatedProductData); 
   
       return NextResponse.json({ message: "Producto actualizado con éxito" }, { status: 200 });
     } catch (error) {

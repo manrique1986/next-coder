@@ -4,9 +4,9 @@ import { db } from "app/components/firebase/config";
 
 export async function POST(request) {
   try {
-    const productData = await request.json(); // Asegúrate de que los datos se estén obteniendo correctamente
+    const productData = await request.json(); 
 
-    const docRef = await addDoc(collection(db, "Productos"), productData); // Agrega el producto a Firestore
+    const docRef = await addDoc(collection(db, "Productos"), productData); 
     const newProduct = {
       id: docRef.id,
       ...productData,

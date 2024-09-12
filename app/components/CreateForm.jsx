@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Swal from "sweetalert2"; // Importar SweetAlert2
+import Swal from "sweetalert2"; 
 
 const CreateForm = ({ onProductAdd }) => {
   const [productData, setProductData] = useState({

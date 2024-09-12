@@ -10,13 +10,13 @@ import Loading from "./loading";
 const Productos = ({ category }) => {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [isLoading, setIsLoading] = useState(true); // Estado para manejar la carga
+  const [isLoading, setIsLoading] = useState(true); 
   const router = useRouter();
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Simular un retraso de 3 segundos
+      
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         const response = await fetch(`/api/productos/${category || "all"}`, {
@@ -25,8 +25,8 @@ const Productos = ({ category }) => {
         const data = await response.json();
 
         setProducts(data);
-        setSelectedCategory("todos"); // Establecer la categoría a 'todos' después de la carga
-        setIsLoading(false); // Terminar el estado de carga
+        setSelectedCategory("todos"); 
+        setIsLoading(false); 
       } catch (error) {
         console.error("Error fetching products:", error);
         setIsLoading(false);

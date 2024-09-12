@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image'; // Importa el componente Image
+import Image from 'next/image'; 
 
 const ProductDetail = ({ pizza, closeModal }) => {
   return (
@@ -15,8 +15,8 @@ const ProductDetail = ({ pizza, closeModal }) => {
           className="object-center object-cover h-auto w-full mb-4"
           src={pizza.imagen}
           alt={pizza.nombre}
-          width={500} // Ajusta el ancho según tus necesidades
-          height={300} // Ajusta la altura según tus necesidades
+          width={500} 
+          height={300} 
         />
         <p className="text-gray-700 mb-4">{pizza.descripcion}</p>
       </div>

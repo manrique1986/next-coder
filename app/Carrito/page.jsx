@@ -3,7 +3,7 @@
 import { useCartContext } from "../context/cartContext";
 import React from "react";
 import Image from 'next/image';
-import Swal from 'sweetalert2'; // Importa SweetAlert2
+import Swal from 'sweetalert2';
 
 const Carrito = () => {
   const { cart, removeFromCart, updateQuantity } = useCartContext();
@@ -19,8 +19,6 @@ const Carrito = () => {
   const handleDecrement = (item) => {
     if (item.quantity > 1) {
       updateQuantity(item.id, item.quantity - 1);
-    } else {
-      // removeFromCart(item);
     }
   };
 
@@ -58,7 +56,7 @@ const Carrito = () => {
               {cart.map((item) => (
                 <li
                   key={item.id}
-                  className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between"
+                  className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between flex-col md:flex-row"
                 >
                   <div className="flex items-center">
                     <Image
@@ -97,7 +95,7 @@ const Carrito = () => {
                   </div>
                   <button
                     onClick={() => handleRemove(item)}
-                    className="px-4 py-2 bg-[#EB3A00] text-white rounded-lg hover:bg-red-600"
+                    className="px-4 py-2 bg-[#EB3A00] text-white rounded-lg hover:bg-red-600 mt-4 md:mt-0 w-full md:w-auto"
                   >
                     Eliminar
                   </button>

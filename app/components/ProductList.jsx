@@ -20,7 +20,7 @@ const ProductList = ({ productos = [] }) => {
   };
 
   if (!productos || productos.length === 0) {
-    // No mostramos nada mientras no haya productos o mientras están cargando
+ 
     return null;
   }
 

@@ -2,16 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import EditProduct from "app/components/EditProduct"; // Asegúrate de ajustar la ruta según sea necesario
+import EditProduct from "app/components/EditProduct"; 
 
 const EditPage = () => {
   const router = useRouter();
   const [productId, setProductId] = useState(null);
 
-  // Simulación de obtener el ID del producto desde algún lugar, como una URL
+
   useEffect(() => {
-    // Ejemplo de obtener el ID del producto desde una URL
-    // Puedes ajustar esto según tu necesidad real
+   
     const query = new URLSearchParams(window.location.search);
     const id = query.get('id');
     if (id) {
@@ -22,7 +21,7 @@ const EditPage = () => {
   }, []);
 
   const handleProductUpdate = (updatedProduct) => {
-    // Aquí puedes manejar la lógica para actualizar el estado global o realizar alguna acción adicional
+   
     console.log("Producto actualizado:", updatedProduct);
   };
 

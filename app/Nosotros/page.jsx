@@ -15,7 +15,7 @@ const Page = () => {
         {/* Imagen Principal */}
         <div className="relative">
           <Image
-            src="https://res.cloudinary.com/dytpump6i/image/upload/v1725925989/pizza-2487090_1280_mftfam.jpg" // Cambia esta ruta por la ruta de tu imagen
+            src="https://res.cloudinary.com/dytpump6i/image/upload/v1725925989/pizza-2487090_1280_mftfam.jpg" 
             alt="Pizzas deliciosas"
             layout="responsive"
             width={1200}
@@ -45,8 +45,7 @@ const Page = () => {
           </div>
           <div className="flex flex-col items-center">
             <Image
-              src="https://res.cloudinary.com/dytpump6i/image/upload/v1725926058/pizza-1471406_1280_kh0kxj.jpg" // Cambia esta ruta por la ruta de tu imagen
-              alt="Nuestro equipo"
+              src="https://res.cloudinary.com/dytpump6i/image/upload/v1725926058/pizza-1471406_1280_kh0kxj.jpg" 
               width={800}
               height={600}
               className="object-cover rounded-lg mb-6"

@@ -15,10 +15,10 @@ const ProductCard = ({ pizza, onPizzaClick }) => {
   };
 
   const handleAddToCart = () => {
-    // Agregar el producto al carrito
+
     addToCart({ ...pizza, quantity });
 
-    // Mostrar una alerta con SweetAlert2
+
     Swal.fire({
       title: "¡Agregado al carrito!",
       text: `Has agregado ${quantity} ${pizza.nombre} al carrito.`,

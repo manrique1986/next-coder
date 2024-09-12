@@ -10,16 +10,16 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
   const addToCart = (product) => {
-    const newItem = { ...product, id: Date.now() }; // Añadir un ID único para cada item
-    setCart([...cart, newItem]); // Agregar el nuevo item al carrito
+    const newItem = { ...product, id: Date.now() }; 
+    setCart([...cart, newItem]); 
   };
 
   const updateQuantity = (id, newQuantity) => {
     if (newQuantity <= 0) {
-      // Si la nueva cantidad es menor o igual a cero, elimina el producto del carrito
+    
       removeFromCart({ id });
     } else {
-      // De lo contrario, actualiza la cantidad del producto
+    
       setCart((prevCart) =>
         prevCart.map((item) =>
           item.id === id ? { ...item, quantity: newQuantity } : item

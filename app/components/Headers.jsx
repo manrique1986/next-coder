@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCartContext } from "app/context/cartContext";
-import { useAuthContext } from "app/context/AuthContext"; // Importamos el contexto de autenticación
-import Swal from "sweetalert2"; // Importamos SweetAlert2
+import { useAuthContext } from "app/context/AuthContext"; 
+import Swal from "sweetalert2"; 
 
 const Links = [
   { Label: "Home", href: "/" },
@@ -21,18 +21,17 @@ const Headers = () => {
   const pathname = usePathname();
   const totalItems = getTotalItems();
 
-  // Usamos el contexto de autenticación
-  const { isAuthenticated, user, logout } = useAuthContext(); // Obtenemos el usuario del contexto
+  const { isAuthenticated, user, logout } = useAuthContext(); 
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
-  // Función para desloguear con SweetAlert
-  const handleLogout = async () => {
-    await logout(); // Llamamos la función de logout del contexto
-    closeMenu(); // Cerrar menú móvil al hacer logout
 
-    // Mostramos la alerta con SweetAlert2
+  const handleLogout = async () => {
+    await logout(); 
+    closeMenu();
+
+
     Swal.fire({
       title: "¡Has cerrado sesión!",
       text: "Esperamos verte pronto.",
@@ -54,7 +53,7 @@ const Headers = () => {
             />
           </Link>
 
-          {/* Botón del menú móvil */}
+     
           <button
             className="md:hidden p-2 text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 transition-transform duration-300"
             onClick={toggleMenu}
@@ -77,7 +76,7 @@ const Headers = () => {
             </svg>
           </button>
 
-          {/* Links y Carrito */}
+      
           <div
             className={`fixed inset-0 bg-white transition-transform duration-300 md:relative md:flex md:items-center md:space-x-8 ${
               isMenuOpen ? "transform translate-x-0 z-50" : "transform -translate-x-full"
@@ -101,11 +100,10 @@ const Headers = () => {
                 </li>
               ))}
 
-              {/* Carrito */}
               <li className="relative md:hidden">
                 <Link href="/Carrito" onClick={closeMenu}>
                   <Image
-                    src="https://res.cloudinary.com/dytpump6i/image/upload/v1724794855/carrito1_xfvl2d.png"
+                    src="https://res.cloudinary.com/dytpump6i/image/upload/v1726179310/carrito-de-compras_ysqcxl.png"
                     alt="Carrito"
                     width={30}
                     height={30}
@@ -118,11 +116,11 @@ const Headers = () => {
                 </Link>
               </li>
 
-              {/* Login/Logout y saludo */}
+        
               <li className="flex items-center space-x-4">
                 {isAuthenticated ? (
                   <>
-                    {/* Saludo al usuario autenticado */}
+                  
                     <p className="text-lg text-gray-700 dark:text-gray-300">
                       ¡Hola, {user?.email}!
                     </p>
@@ -148,7 +146,7 @@ const Headers = () => {
           <div className="hidden md:block relative">
             <Link href="/Carrito">
               <Image
-                src="https://res.cloudinary.com/dytpump6i/image/upload/v1724794855/carrito1_xfvl2d.png"
+                src="https://res.cloudinary.com/dytpump6i/image/upload/v1726179310/carrito-de-compras_ysqcxl.png"
                 alt="Carrito"
                 width={30}
                 height={30}
