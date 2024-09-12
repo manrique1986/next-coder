@@ -3,85 +3,91 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from 'next/image';
+import Swal from 'sweetalert2';
 
 const ProductsTable = ({ category }) => {
   const [products, setProducts] = useState([]);
   const router = useRouter();
 
- // Este useEffect se encarga de cargar los productos desde la API
- useEffect(() => {
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch(`/api/productos/${category || "all"}`, {
-        cache: "no-store",
-      });
-      const data = await response.json();
-      // Verifica los datos recibidos desde la API
-      console.log("Productos obtenidos:", data);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`/api/productos/${category || "all"}`, {
+          cache: "no-store",
+        });
+        const data = await response.json();
+        const productsWithIds = data.map((product) => ({
+          id: product.id || product.docId,
+          ...product,
+        }));
+        setProducts(productsWithIds);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
 
-      // Aseguramos que cada producto tenga un campo `id`
-      const productsWithIds = data.map((product) => ({
-        id: product.id || product.docId, // Asegúrate de que el id esté presente
-        ...product,
-      }));
+    fetchProducts();
+  }, [category]);
 
-      setProducts(productsWithIds); // Actualizamos el estado con los productos
-    } catch (error) {
-      console.error("Error fetching products:", error);
+  const handleDeleteProduct = async (id) => {
+    if (!id) {
+      console.error("ID del producto es indefinido");
+      return;
     }
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "No podrás revertir esta acción",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`/api/producto/${id}`, {
+            method: "DELETE",
+          });
+
+          if (response.ok) {
+            setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+            Swal.fire(
+              'Eliminado',
+              'El producto ha sido eliminado con éxito.',
+              'success'
+            );
+          } else {
+            Swal.fire(
+              'Error',
+              'Hubo un error al eliminar el producto.',
+              'error'
+            );
+          }
+        } catch (error) {
+          console.error("Error en la solicitud:", error);
+          Swal.fire(
+            'Error',
+            'Hubo un problema con la solicitud.',
+            'error'
+          );
+        }
+      }
+    });
   };
 
-  fetchProducts();
-}, [category]);
-
-// Función para manejar la eliminación del producto
-const handleDeleteProduct = async (id) => {
-  console.log("ID del producto a eliminar:", id); // Aquí verificas si el ID está llegando correctamente
-
-  if (!id) {
-    console.error("ID del producto es indefinido");
-    return;
-  }
-
-  const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este producto?");
-  if (confirmDelete) {
-    try {
-      const response = await fetch(`/api/producto/${id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        if (result.message === "Producto eliminado con éxito") {
-          setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
-          alert("Producto eliminado con éxito");
-        } else {
-          console.error("Error al eliminar el producto:", result.error);
-          alert("Hubo un error al eliminar el producto.");
-        }
-      } else {
-        console.error("Error al eliminar el producto.");
-        alert("Hubo un error al eliminar el producto.");
-      }
-    } catch (error) {
-      console.error("Error en la solicitud:", error);
-      alert("Hubo un problema con la solicitud.");
-    }
-  }
-};
-
   const handleAddProduct = () => {
-    router.push("/Admin/Create"); // Redirige a la página de creación de producto
+    router.push("/Admin/Create");
   };
 
   const handleEditProduct = (id) => {
     if (id) {
-      router.push(`/Admin/Edit?id=${id}`); // Redirige a la página de edición de producto con el ID
+      router.push(`/Admin/Edit?id=${id}`);
     } else {
       console.error("ID del producto es indefinido");
     }
   };
-
 
   return (
     <div className="h-screen overflow-hidden">

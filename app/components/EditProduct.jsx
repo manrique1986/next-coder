@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Swal from "sweetalert2"; // Importa SweetAlert2
+import "sweetalert2/src/sweetalert2.scss"; // Opcional: Importa estilos
 
 const EditProductForm = () => {
   const [product, setProduct] = useState({
@@ -12,7 +14,7 @@ const EditProductForm = () => {
   });
   const router = useRouter();
   const searchParams = useSearchParams();
-  const productId = searchParams.get("id"); // Obtén el ID del producto de la URL
+  const productId = searchParams.get("id"); 
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -20,7 +22,7 @@ const EditProductForm = () => {
         try {
           const response = await fetch(`/api/producto/${productId}`);
           const data = await response.json();
-          setProduct(data); // Carga los datos del producto en el estado
+          setProduct(data);
         } catch (error) {
           console.error("Error al cargar el producto:", error);
         }
@@ -40,32 +42,48 @@ const EditProductForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const response = await fetch(`/api/producto/${productId}`, { // Usa la ruta correcta
+      const response = await fetch(`/api/producto/${productId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(product), // Envía los datos actualizados
+        body: JSON.stringify(product),
       });
-  
+
       if (response.ok) {
-        alert("Producto actualizado con éxito");
-        router.push("/productos"); // Redirige a la lista de productos después de editar
+        Swal.fire({
+          title: "Éxito",
+          text: "Producto actualizado con éxito",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then(() => {
+          router.push("/productos"); 
+        });
       } else {
-        alert("Hubo un error al actualizar el producto");
+        Swal.fire({
+          title: "Error",
+          text: "Hubo un error al actualizar el producto",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       }
     } catch (error) {
       console.error("Error al actualizar el producto:", error);
-      alert("Hubo un problema con la solicitud.");
+      Swal.fire({
+        title: "Error",
+        text: "Hubo un problema con la solicitud.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
   return (
-    <div className="h-screen flex justify-center items-center">
-      <form className="bg-white shadow-lg rounded-lg p-8" onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-bold mb-6">Editar Producto</h2>
+    <div className="h-screen flex justify-center items-center bg-gray-50">
+      <form className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg" onSubmit={handleSubmit}>
+        <h2 className="text-3xl font-bold mb-6 text-center text-blue-600">Editar Producto</h2>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Nombre</label>
           <input
@@ -73,7 +91,7 @@ const EditProductForm = () => {
             name="nombre"
             value={product.nombre}
             onChange={handleInputChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
         <div className="mb-4">
@@ -82,7 +100,7 @@ const EditProductForm = () => {
             name="descripcion"
             value={product.descripcion}
             onChange={handleInputChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
         <div className="mb-4">
@@ -92,7 +110,7 @@ const EditProductForm = () => {
             name="precio"
             value={product.precio}
             onChange={handleInputChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
         <div className="mb-4">
@@ -102,7 +120,7 @@ const EditProductForm = () => {
             name="imagen"
             value={product.imagen}
             onChange={handleInputChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
         <div className="mb-4">
@@ -112,13 +130,13 @@ const EditProductForm = () => {
             name="category"
             value={product.category}
             onChange={handleInputChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
         <div className="mt-6">
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition-all"
           >
             Guardar Cambios
           </button>

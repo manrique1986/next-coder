@@ -4,6 +4,7 @@ import Headers from "./components/Headers";
 import Footer from "./components/Footer";
 import { CartProvider } from "./context/cartContext";
 import { AuthProvider } from "./context/AuthContext";
+import Head from "next/head"; // Importa el componente Head de Next.js
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,12 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <CartProvider>
             <Headers />
-            {children} <Footer />
+            <Head>
+              <link rel="icon" href="/logoPiza.png" />
+        
+            </Head>
+            {children}
+            <Footer />
           </CartProvider>
         </AuthProvider>
       </body>
